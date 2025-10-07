@@ -1,9 +1,9 @@
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from backend.models import User, Donor, BloodRequest
-from backend.auth import generate_token, token_required, admin_required
-from backend.database import Database
+from models import User, Donor, BloodRequest
+from auth import generate_token, token_required, admin_required
+from database import Database
 import os
 from dotenv import load_dotenv
 
