@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Stock - LifeStream</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-tint"></i>
+            <h1>LifeStream</h1>
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Donate</a></li>
+                <li><a href="request.html">Request</a></li>
+                <li><a href="stock.html" class="active">Blood Stock</a></li>
+                <li><a href="search.html">Find Donors</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-secondary">Login</a>
+            <a href="registration.html" class="btn btn-primary">Register</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="stock-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Blood Stock Availability</h2>
+                    <p>Real-time availability of blood donors by blood group</p>
+                </div>
+
+                <div class="stock-controls">
+                    <button id="refresh-stock" class="btn btn-secondary">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh Stock
+                    </button>
+                    <span class="last-updated">Last updated: <span id="last-updated-time">Just now</span></span>
+                </div>
+
+                <div id="stock-grid" class="stock-grid">
+                    <!-- Blood stock will be loaded dynamically -->
+                </div>
+
+                <div class="stock-legend">
+                    <div class="legend-item">
+                        <div class="legend-color status-available"></div>
+                        <span>Available (5+ donors)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color status-low"></div>
+                        <span>Low (2-4 donors)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color status-critical"></div>
+                        <span>Critical (0-1 donors)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <h3>Quick Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-donors">0</div>
+                        <div class="stat-label">Total Donors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="available-donors">0</div>
+                        <div class="stat-label">Available Now</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="most-available">-</div>
+                        <div class="stat-label">Most Available</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="least-available">-</div>
+                        <div class="stat-label">Least Available</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="call-to-action">
+            <div class="container">
+                <div class="cta-content">
+                    <h3>Help Us Maintain Blood Supply</h3>
+                    <p>Your donation can make a difference. Join our community of life-savers today.</p>
+                    <div class="cta-buttons">
+                        <a href="register.html" class="btn btn-primary btn-large">
+                            <i class="fas fa-hand-holding-water"></i>
+                            Become a Donor
+                        </a>
+                        <a href="request.html" class="btn btn-secondary">
+                            <i class="fas fa-share"></i>
+                            Share with Friends
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>LifeStream</h3>
+                <p>Connecting donors with those in need to save lives through timely blood donation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/AmanKumar41235?t=hf9WL_MpPzDalhpzqZTFPA&s=09"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/mr_aman421?igsh=MW93NnZ4MWFsaWtvaw=="><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/aman-kumar-216bbb255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="register.html">Donate Blood</a></li>
+                    <li><a href="request.html">Request Blood</a></li>
+                    <li><a href="stock.html">Blood Stock</a></li>
+                    <li><a href="search.html">Find Donors</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Eligibility Criteria</a></li>
+                    <li><a href="#">Donation Process</a></li>
+                    <li><a href="#">Blood Types</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Blood Bank Road, Gaya, Bihar</li>
+                    <li><i class="fas fa-phone-alt"></i> +91 9998887776</li>
+                    <li><i class="fas fa-envelope"></i> info@lifestream.org</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LifeStream Blood Bank Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+    <script src="js/stock.js"></script>
+</body>
+</html>

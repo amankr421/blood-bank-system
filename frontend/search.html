@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Donors - LifeStream</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-tint"></i>
+            <h1>LifeStream</h1>
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Donate</a></li>
+                <li><a href="request.html">Request</a></li>
+                <li><a href="stock.html">Blood Stock</a></li>
+                <li><a href="search.html" class="active">Find Donors</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-secondary">Login</a>
+            <a href="registration.html" class="btn btn-primary">Register</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <div class="container">
+                <div class="search-header">
+                    <h2>Find Blood Donors</h2>
+                    <p>Connect with life-savers in your area. Search by blood group and location to find available donors.</p>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat-badge">
+                        <i class="fas fa-users"></i>
+                        <span id="total-donors-count">Loading donors...</span>
+                    </div>
+                    <div class="stat-badge">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Multiple Cities</span>
+                    </div>
+                    <div class="stat-badge">
+                        <i class="fas fa-clock"></i>
+                        <span>24/7 Availability</span>
+                    </div>
+                </div>
+
+                <form id="search-form" class="search-form">
+                    <div class="search-filters">
+                        <div class="form-group">
+                            <label for="blood_group">
+                                <i class="fas fa-tint"></i>
+                                Blood Group Required *
+                            </label>
+                            <select id="blood_group" name="blood_group" class="form-control" required>
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">
+                                <i class="fas fa-map-marked-alt"></i>
+                                State / Region *
+                            </label>
+                            <input type="text" id="state" name="state" class="form-control" placeholder="Enter State/Region" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">
+                                <i class="fas fa-city"></i>
+                                City (Optional)
+                            </label>
+                            <input type="text" id="city" name="city" class="form-control" placeholder="Enter City">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-search">
+                            <i class="fas fa-search"></i>
+                            Search Donors
+                        </button>
+                    </div>
+                </form>
+
+                <div id="search-results" class="search-results">
+                    <div class="results-placeholder">
+                        <div class="placeholder-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Ready to Find Donors?</h3>
+                        <p>Select blood group and enter your **State/Region** (and optionally City) to find available donors in your area.</p>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="emergency-card">
+                        <div class="emergency-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="emergency-content">
+                            <h3>Emergency Blood Need?</h3>
+                            <p>Call our 24/7 emergency helpline for immediate assistance</p>
+                            <a href="tel:+919998887776" class="btn btn-emergency">
+                                <i class="fas fa-phone"></i>
+                                Call Emergency: +91 9998887776
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Search</h3>
+                        <p>Enter blood group and state (or city) to find matching donors</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Contact</h3>
+                        <p>Reach out to donors using provided contact details</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Connect</h3>
+                        <p>Coordinate donation timing and location</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Save Lives</h3>
+                        <p>Complete the donation and save precious lives</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="compatibility-section">
+            <div class="container">
+                <h2>Blood Group Compatibility</h2>
+                <div class="compatibility-grid">
+                    <div class="compatibility-card">
+                        <h4>A+</h4>
+                        <p>Can receive from: A+, A-, O+, O-</p>
+                        <p>Can donate to: A+, AB+</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>A-</h4>
+                        <p>Can receive from: A-, O-</p>
+                        <p>Can donate to: A+, A-, AB+, AB-</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>B+</h4>
+                        <p>Can receive from: B+, B-, O+, O-</p>
+                        <p>Can donate to: B+, AB+</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>B-</h4>
+                        <p>Can receive from: B-, O-</p>
+                        <p>Can donate to: B+, B-, AB+, AB-</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>AB+</h4>
+                        <p>Can receive from: All blood types</p>
+                        <p>Can donate to: AB+</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>AB-</h4>
+                        <p>Can receive from: AB-, A-, B-, O-</p>
+                        <p>Can donate to: AB+, AB-</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>O+</h4>
+                        <p>Can receive from: O+, O-</p>
+                        <p>Can donate to: O+, A+, B+, AB+</p>
+                    </div>
+                    <div class="compatibility-card">
+                        <h4>O-</h4>
+                        <p>Can receive from: O-</p>
+                        <p>Can donate to: All blood types</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>LifeStream</h3>
+                <p>Connecting donors with those in need to save lives through timely blood donation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/AmanKumar41235?t=hf9WL_MpPzDalhpzqZTFPA&s=09"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/mr_aman421?igsh=MW93NnZ4MWFsaWtvaw=="><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/aman-kumar-216bbb255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="register.html">Donate Blood</a></li>
+                    <li><a href="request.html">Request Blood</a></li>
+                    <li><a href="stock.html">Blood Stock</a></li>
+                    <li><a href="search.html">Find Donors</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Eligibility Criteria</a></li>
+                    <li><a href="#">Donation Process</a></li>
+                    <li><a href="#">Blood Types</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Blood Bank Road, Gaya, Bihar</li>
+                    <li><i class="fas fa-phone-alt"></i> +91 9998887776</li>
+                    <li><i class="fas fa-envelope"></i> info@lifestream.org</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LifeStream Blood Bank Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+    <script>
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Enhanced search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('search-form');
+            
+            // Load total donors count
+            updateDonorsCount();
+            
+            // Add search form handler
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleDonorSearch(searchForm);
+            });
+            
+
+        });
+
+        // Get total donors count from backend
+        async function updateDonorsCount() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/donors`); 
+                if (response.ok) {
+                    const data = await response.json();
+                    const totalDonors = data.donors ? data.donors.length : 0;
+                    document.getElementById('total-donors-count').textContent = `${totalDonors}+ Registered Donors`;
+                } else {
+                    document.getElementById('total-donors-count').textContent = '1000+ Registered Donors';
+                }
+            } catch (error) {
+                console.error('Error fetching donors count:', error);
+                document.getElementById('total-donors-count').textContent = '1000+ Registered Donors';
+            }
+        }
+
+        // Main search function using backend API - UPDATED
+        async function handleDonorSearch(searchForm) {
+            const searchResults = document.getElementById('search-results');
+            const formData = new FormData(searchForm);
+            const bloodGroup = formData.get('blood_group');
+            const state = formData.get('state').trim(); // New required field
+            const city = formData.get('city').trim(); // Now optional
+            
+            if (!bloodGroup || !state) {
+                alert("Please select a Blood Group and enter a State/Region.");
+                return;
+            }
+
+            // Determine the display string for the location
+            const locationDisplay = city ? `${city}, ${state}` : state;
+            
+            // Build query parameters
+            const searchQueryParams = new URLSearchParams({
+                blood_group: bloodGroup,
+                state: state,
+                // Only add city to query if it's provided (i.e., not empty)
+                ...(city && { city: city }) 
+            });
+
+            // Show loading state
+            searchResults.innerHTML = `
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Searching for ${bloodGroup} donors in ${locationDisplay}...</p>
+                </div>
+            `;
+            
+            try {
+                // API call to search donors
+                const response = await fetch(`${API_BASE_URL}/donors/search?${searchQueryParams.toString()}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    displaySearchResults(data.donors || [], bloodGroup, locationDisplay);
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Search failed');
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                displayErrorResults(bloodGroup, locationDisplay, error.message);
+            }
+        }
+
+        // Display search results - UPDATED
+        function displaySearchResults(donors, bloodGroup, locationDisplay) {
+            const searchResults = document.getElementById('search-results');
+            
+            if (!donors || donors.length === 0) {
+                searchResults.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>No Donors Found</h3>
+                        <p>We couldn't find any ${bloodGroup} donors in ${locationDisplay}.</p>
+                        <div class="suggestions">
+                            <p><strong>Suggestions:</strong></p>
+                            <ul>
+                                <li>Check if the location name is spelled correctly</li>
+                                <li>If you searched by City, **try searching by just the State/Region**</li>
+                                <li>Contact our emergency helpline for urgent requirements</li>
+                                <li><a href="register.html">Become a donor</a> and help others</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            let resultsHTML = `
+                <div class="results-header">
+                    <h3>Found ${donors.length} ${bloodGroup} Donor${donors.length > 1 ? 's' : ''} in ${locationDisplay}</h3>
+                    <p class="results-subtitle">Contact them directly for blood donation</p>
+                </div>
+            `;
+            
+            donors.forEach(donor => {
+                resultsHTML += `
+                    <div class="donor-card">
+                        <div class="donor-header">
+                            <div class="donor-info">
+                                <h3>${donor.full_name}</h3>
+                                <div class="donor-badge">${donor.blood_group}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="donor-details">
+                            <div class="donor-detail">
+                                <i class="fas fa-user"></i>
+                                <span>${donor.age} years, ${donor.gender}</span>
+                            </div>
+                            <div class="donor-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${donor.city}, ${donor.state}</span>
+                            </div>
+                            <div class="donor-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>${donor.mobile}</span>
+                            </div>
+                            <div class="donor-detail">
+                                <i class="fas fa-envelope"></i>
+                                <span>${donor.email}</span>
+                            </div>
+                            ${donor.address ? `
+                            <div class="donor-detail">
+                                <i class="fas fa-home"></i>
+                                <span>${donor.address}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="donor-actions">
+                            <a href="tel:${donor.mobile}" class="btn-contact">
+                                <i class="fas fa-phone"></i>
+                                Call Now
+                            </a>
+                            <a href="mailto:${donor.email}" class="btn-contact">
+                                <i class="fas fa-envelope"></i>
+                                Send Email
+                            </a>
+                            <button class="btn-contact btn-whatsapp" onclick="shareOnWhatsApp('${donor.full_name}', '${donor.blood_group}', '${donor.mobile}')">
+                                <i class="fab fa-whatsapp"></i>
+                                WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            searchResults.innerHTML = resultsHTML;
+        }
+
+        // Display error results - UPDATED
+        function displayErrorResults(bloodGroup, locationDisplay, errorMessage) {
+            const searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Search Failed</h3>
+                    <p>${errorMessage}</p>
+                    <div class="suggestions">
+                        <p><strong>Please try:</strong></p>
+                        <ul>
+                            <li>Check your internet connection</li>
+                            <li>Try again in a few moments</li>
+                            <li>Contact our emergency helpline for urgent needs</li>
+                            <li><a href="request.html">Submit a blood request</a></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // WhatsApp sharing function
+        function shareOnWhatsApp(name, bloodGroup, mobile) {
+            const message = `Hello ${name}, I need ${bloodGroup} blood. Can you help?`;
+            // NOTE: Mobile number formatting may need to be strictly enforced on the server-side for reliability
+            const whatsappURL = `https://wa.me/${mobile.replace('+', '').replace(/\s/g, '')}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Blood - LifeStream</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-tint"></i>
+            <h1>LifeStream</h1>
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Donate</a></li>
+                <li><a href="request.html" class="active">Request</a></li>
+                <li><a href="stock.html">Blood Stock</a></li>
+                <li><a href="search.html">Find Donors</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-secondary">Login</a>
+            <a href="registration.html" class="btn btn-primary">Register</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Request Blood</h2>
+                    <p>Submit a blood request for yourself or someone in need. We'll help you find suitable donors.</p>
+                </div>
+                
+                <form id="request-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="patient_name">Patient Name *</label>
+                            <input type="text" id="patient_name" name="patient_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Patient Age *</label>
+                            <input type="number" id="age" name="age" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Patient Gender *</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="blood_group">Blood Group Required *</label>
+                            <select id="blood_group" name="blood_group" class="form-control" required>
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="units_required">Units Required *</label>
+                            <input type="number" id="units_required" name="units_required" class="form-control" min="1" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="urgency">Urgency Level *</label>
+                            <select id="urgency" name="urgency" class="form-control" required>
+                                <option value="Normal">Normal</option>
+                                <option value="Urgent">Urgent</option>
+                                <option value="Critical">Critical</option>
+                                <option value="Emergency">Emergency</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hospital_name">Hospital Name *</label>
+                        <input type="text" id="hospital_name" name="hospital_name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hospital_address">Hospital Address *</label>
+                        <textarea id="hospital_address" name="hospital_address" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State *</label>
+                            <input type="text" id="state" name="state" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="location-button" onclick="getCurrentLocation()">
+                            <i class="fas fa-location-arrow"></i>
+                            Use My Current Location
+                        </button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact_person">Contact Person *</label>
+                            <input type="text" id="contact_person" name="contact_person" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact_mobile">Contact Mobile *</label>
+                            <input type="tel" id="contact_mobile" name="contact_mobile" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact_email">Contact Email</label>
+                        <input type="email" id="contact_email" name="contact_email" class="form-control">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">Submit Request</button>
+                        <a href="search.html" class="btn btn-secondary">Search Donors First</a>
+                    </div>
+
+                    <div class="form-footer">
+                        <p><strong>Emergency?</strong> Call our 24/7 helpline: <a href="tel:+919998887776">+91 9998887776</a></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="emergency-section">
+            <div class="container">
+                <div class="emergency-alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="emergency-content">
+                        <h3>Emergency Blood Requirement?</h3>
+                        <p>If this is a life-threatening emergency, please call our emergency helpline immediately. Our team is available 24/7 to assist you.</p>
+                        <a href="tel:+919998887776" class="btn btn-emergency">
+                            <i class="fas fa-phone"></i>
+                            Call Emergency Helpline
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>LifeStream</h3>
+                <p>Connecting donors with those in need to save lives through timely blood donation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/AmanKumar41235?t=hf9WL_MpPzDalhpzqZTFPA&s=09"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/mr_aman421?igsh=MW93NnZ4MWFsaWtvaw=="><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/aman-kumar-216bbb255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="register.html">Donate Blood</a></li>
+                    <li><a href="request.html">Request Blood</a></li>
+                    <li><a href="stock.html">Blood Stock</a></li>
+                    <li><a href="search.html">Find Donors</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Eligibility Criteria</a></li>
+                    <li><a href="#">Donation Process</a></li>
+                    <li><a href="#">Blood Types</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Blood Bank Road, Gaya, Bihar</li>
+                    <li><i class="fas fa-phone-alt"></i> +91 9998887776</li>
+                    <li><i class="fas fa-envelope"></i> info@lifestream.org</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LifeStream Blood Bank Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+    <script src="js/forms.js"></script>
+</body>
+</html>
