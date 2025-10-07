@@ -3,7 +3,7 @@ from flask_cors import CORS
 import os
 
 # Backend import
-from backend.backendapp import app as backend_app  # backend ka Flask app
+from backend.backendapp import app as backendapp 
 
 # Root app jo frontend serve karega
 app = Flask(__name__, static_folder="frontend", template_folder="frontend")
@@ -16,7 +16,7 @@ def index():
 
 # Backend routes ko root app me register karna
 # Agar backend me Blueprint use kiya hai:
-app.register_blueprint(backend_app)  
+app.register_blueprint(backendapp)  
 
 # Optionally, any static files (css/js) automatically serve ho jaye
 @app.route('/<path:path>')
