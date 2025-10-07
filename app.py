@@ -3,7 +3,17 @@ from flask_cors import CORS
 from models import User, Donor, BloodRequest
 from auth import generate_token, token_required, admin_required
 from database import Database
+from backend.backendapp import app
 import os
+
+from flask import Flask, send_from_directory
+
+app = Flask(__name__, static_folder="frontend", template_folder="frontend")
+
+@app.route('/')
+def index():
+    return send_from_directory(app.template_folder, 'index.html')
+
 
 app = Flask(__name__)
 CORS(app)
@@ -287,5 +297,4 @@ def update_blood_request_status(request_id):
 #     app.run(debug=True, port=5000)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(debug=True)
