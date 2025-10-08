@@ -165,3 +165,24 @@ class Database:
             conn.commit()
             conn.close()
             print("Database initialized successfully!")
+
+
+
+
+
+def get_connection(self):
+    try:
+        database_url = os.environ.get('DATABASE_URL')
+        print(f"🔧 DATABASE_URL: {database_url}")  # Debug line
+        
+        if database_url:
+            # Neon database connection
+            conn = psycopg2.connect(database_url, sslmode='require')
+            print("✅ Neon Database Connected!")
+            return conn
+        else:
+            print("❌ DATABASE_URL not found in environment")
+            return None
+    except Exception as e:
+        print(f"❌ Database Error: {str(e)}")
+        return None
