@@ -1,7 +1,7 @@
 import os
 import sqlite3
-from urllib.parse import urlparse
-# from models import User, Donor, BloodRequest  <--- IS LINE KO HATA DIYA GAYA HAI
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 class Database:
     def __init__(self):
@@ -10,33 +10,27 @@ class Database:
     
     def get_connection(self):
         try:
-            if self.database_url:
-                # PostgreSQL for production (Render)
+            database_url = os.environ.get('DATABASE_URL')
+            print(f"🔧 DATABASE_URL: {database_url}")  # Debug line
+            
+            if database_url:
+                # Production - Neon PostgreSQL database
                 print("Using PostgreSQL database...")
-                try:
-                    import psycopg2
-                    from psycopg2.extras import RealDictCursor # ZAROORI: DICTIONARY ACCESS KE LIYE
-                    
-                    result = urlparse(self.database_url)
-                    conn = psycopg2.connect(
-                        database=result.path[1:],
-                        user=result.username,
-                        password=result.password,
-                        host=result.hostname,
-                        port=result.port
-                    )
-                    # CURSOR FACTORY SET KARNA ZAROORI HAI
-                    conn.cursor_factory = RealDictCursor 
-                    
-                    return conn
-                except ImportError:
-                    print("psycopg2 not available, falling back to SQLite")
-                    return self._get_sqlite_connection()
+                
+                # Fix for Neon connection string
+                if database_url.startswith('postgres://'):
+                    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+                
+                conn = psycopg2.connect(database_url, sslmode='require')
+                print("✅ Neon Database Connected!")
+                return conn
             else:
-                # SQLite for development
+                # Development - SQLite database
+                print("❌ DATABASE_URL not found, using SQLite...")
                 return self._get_sqlite_connection()
+                
         except Exception as e:
-            print(f"Database connection error: {e}")
+            print(f"❌ Database Error: {str(e)}")
             return None
     
     def _get_sqlite_connection(self):
@@ -163,26 +157,6 @@ class Database:
                 ''')
             
             conn.commit()
+            cursor.close()
             conn.close()
-            print("Database initialized successfully!")
-
-
-
-
-
-def get_connection(self):
-    try:
-        database_url = os.environ.get('DATABASE_URL')
-        print(f"🔧 DATABASE_URL: {database_url}")  # Debug line
-        
-        if database_url:
-            # Neon database connection
-            conn = psycopg2.connect(database_url, sslmode='require')
-            print("✅ Neon Database Connected!")
-            return conn
-        else:
-            print("❌ DATABASE_URL not found in environment")
-            return None
-    except Exception as e:
-        print(f"❌ Database Error: {str(e)}")
-        return None
+            print("✅ Database initialized successfully!")
