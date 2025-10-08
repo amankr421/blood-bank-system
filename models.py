@@ -30,7 +30,7 @@ class User:
             cursor = conn.cursor()
             hashed_password = hash_password(self.password)
             
-            # POSTGRESQL FIX: Added RETURNING id and proper ID fetching logic
+            # POSTGRESQL FIX 1: Added RETURNING id for primary key fetching
             cursor.execute('''
                 INSERT INTO users (email, password, full_name, user_type)
                 VALUES (%s, %s, %s, %s) RETURNING id
@@ -38,7 +38,7 @@ class User:
             
             try:
                 # Try fetching ID (works for PostgreSQL)
-                self.id = cursor.fetchone()[0]
+                self.id = cursor.fetchone()['id']
             except Exception:
                 # Fallback for SQLite (if needed for local testing)
                 self.id = cursor.lastrowid 
@@ -53,16 +53,23 @@ class User:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
-            # PostgreSQL FIX: Using %s placeholder
+            # PostgreSQL FIX 2: Using %s placeholder
             cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
             row = cursor.fetchone()
             conn.close()
             if row:
-                return User(id=row['id'], email=row['email'], password=row['password'], 
-                            full_name=row['full_name'], user_type=row['user_type'])
+                # FINAL FIX: Password ko String mein convert karna zaroori hai
+                password_str = str(row['password']) if row['password'] is not None else None
+                
+                return User(id=row['id'], 
+                            email=row['email'], 
+                            password=password_str, 
+                            full_name=row['full_name'], 
+                            user_type=row['user_type'])
         return None
     
     def verify_password(self, password):
+        # Is function ko stringified password ki zaroorat hoti hai
         return verify_password(password, self.password)
 
 class Donor:
@@ -85,7 +92,7 @@ class Donor:
         if conn:
             cursor = conn.cursor()
             
-            # POSTGRESQL FIX: Added RETURNING id and proper ID fetching logic
+            # POSTGRESQL FIX 1: Added RETURNING id
             cursor.execute('''
                 INSERT INTO donors (user_id, full_name, age, gender, mobile, email, address, city, state, blood_group)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id
@@ -93,7 +100,7 @@ class Donor:
                   self.email, self.address, self.city, self.state, self.blood_group))
             
             try:
-                self.id = cursor.fetchone()[0]
+                self.id = cursor.fetchone()['id']
             except Exception:
                 self.id = cursor.lastrowid
             
@@ -109,7 +116,7 @@ class Donor:
         if conn:
             cursor = conn.cursor()
             
-            # PostgreSQL FIX: Using %s placeholders
+            # PostgreSQL FIX 2: Using %s placeholders
             query = "SELECT * FROM donors WHERE blood_group = %s AND state = %s AND is_available = 1"
             params = [blood_group, state]
             
@@ -195,7 +202,7 @@ class BloodRequest:
         if conn:
             cursor = conn.cursor()
             
-            # POSTGRESQL FIX: Added RETURNING id and proper ID fetching logic
+            # POSTGRESQL FIX 1: Added RETURNING id
             cursor.execute('''
                 INSERT INTO blood_requests 
                 (patient_name, age, gender, blood_group, units_required, hospital_name, 
@@ -208,7 +215,7 @@ class BloodRequest:
             
             # ID fetch karne ka logic
             try:
-                self.id = cursor.fetchone()[0]
+                self.id = cursor.fetchone()['id']
             except Exception:
                 self.id = cursor.lastrowid
             
@@ -242,7 +249,7 @@ class BloodRequest:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
-            # PostgreSQL FIX: Using %s placeholders
+            # PostgreSQL FIX 2: Using %s placeholders
             cursor.execute('''
                 UPDATE blood_requests SET status = %s WHERE id = %s
             ''', (status, request_id))
