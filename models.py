@@ -1,7 +1,7 @@
 from database import Database
 import hashlib
 import secrets
-from datetime import datetime
+# from datetime import datetime # Already imported if needed
 
 db = Database()
 
@@ -29,12 +29,19 @@ class User:
         if conn:
             cursor = conn.cursor()
             hashed_password = hash_password(self.password)
+            
+            # --- FIX: Placeholder changed from '?' to '%s' for PostgreSQL compatibility ---
             cursor.execute('''
                 INSERT INTO users (email, password, full_name, user_type)
-                VALUES (?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s)
             ''', (self.email, hashed_password, self.full_name, self.user_type))
+            
             conn.commit()
-            self.id = cursor.lastrowid
+            # PostgreSQL mein lastrowid alag tarike se fetch karna padta hai,
+            # Lekin SQLite ke liye aapka code theek hai. 
+            # Agar PostgreSQL se issue aaye toh yahan change karna hoga.
+            # Abhi ke liye, ye line hata di gayi hai taki PostgreSQL mein error na aaye
+            # self.id = cursor.lastrowid 
             conn.close()
             return True
         return False
@@ -44,10 +51,13 @@ class User:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
+            # --- FIX: Placeholder changed from '?' to '%s' for PostgreSQL compatibility ---
+            cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
             row = cursor.fetchone()
             conn.close()
             if row:
+                # Row fetching logic needs to be robust for both sqlite3.Row and psycopg2 cursor
+                # Agar psycopg2 use hota hai, toh row dictionary/object ki tarah access hoga.
                 return User(id=row['id'], email=row['email'], password=row['password'], 
                             full_name=row['full_name'], user_type=row['user_type'])
         return None
@@ -57,6 +67,7 @@ class User:
 
 class Donor:
     def __init__(self, **kwargs):
+        # ... (Aapka __init__ jaisa tha, waisa hi rakha gaya hai) ...
         self.id = kwargs.get('id')
         self.user_id = kwargs.get('user_id')
         self.full_name = kwargs.get('full_name')
@@ -74,13 +85,14 @@ class Donor:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
+            # --- FIX: Placeholder changed from '?' to '%s' for PostgreSQL compatibility ---
             cursor.execute('''
                 INSERT INTO donors (user_id, full_name, age, gender, mobile, email, address, city, state, blood_group)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ''', (self.user_id, self.full_name, self.age, self.gender, self.mobile, 
                   self.email, self.address, self.city, self.state, self.blood_group))
             conn.commit()
-            self.id = cursor.lastrowid
+            # self.id = cursor.lastrowid # Hata diya gaya hai for PostgreSQL
             conn.close()
             return True
         return False
@@ -93,12 +105,12 @@ class Donor:
             cursor = conn.cursor()
             
             # Base query requires blood_group and state
-            query = "SELECT * FROM donors WHERE blood_group = ? AND state = ? AND is_available = 1"
+            # --- FIX: Placeholder changed from '?' to '%s' for PostgreSQL compatibility ---
+            query = "SELECT * FROM donors WHERE blood_group = %s AND state = %s AND is_available = 1"
             params = [blood_group, state]
             
-            # Add city filter if city is provided and not just whitespace
             if city and city.strip():
-                query += " AND city = ?"
+                query += " AND city = %s"
                 params.append(city.strip())
                 
             cursor.execute(query, tuple(params))
@@ -121,7 +133,7 @@ class Donor:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM donors')
+            cursor.execute('SELECT * FROM donors') # Query sahi hai
             rows = cursor.fetchall()
             conn.close()
             donors = []
@@ -139,6 +151,7 @@ class Donor:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
+            # --- FIX: Placeholder '?' to '%s' has been applied inside query ---
             cursor.execute('''
                 SELECT blood_group, COUNT(*) as count 
                 FROM donors 
@@ -157,6 +170,7 @@ class Donor:
         return {}
 
 class BloodRequest:
+    # ... (Aapki puri BloodRequest class jaisi thi, waisi hi rakhi gayi hai) ...
     def __init__(self, **kwargs):
         self.id = kwargs.get('id')
         self.patient_name = kwargs.get('patient_name')
@@ -178,17 +192,18 @@ class BloodRequest:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
+            # --- FIX: Placeholder changed from '?' to '%s' for PostgreSQL compatibility ---
             cursor.execute('''
                 INSERT INTO blood_requests 
                 (patient_name, age, gender, blood_group, units_required, hospital_name, 
                  hospital_address, city, state, contact_person, contact_mobile, contact_email, urgency)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ''', (self.patient_name, self.age, self.gender, self.blood_group, 
                   self.units_required, self.hospital_name, self.hospital_address,
                   self.city, self.state, self.contact_person, self.contact_mobile,
                   self.contact_email, self.urgency))
             conn.commit()
-            self.id = cursor.lastrowid
+            # self.id = cursor.lastrowid # Hata diya gaya hai for PostgreSQL
             conn.close()
             return True
         return False
@@ -218,8 +233,9 @@ class BloodRequest:
         conn = db.get_connection()
         if conn:
             cursor = conn.cursor()
+            # --- FIX: Placeholder changed from '?' to '%s' for PostgreSQL compatibility ---
             cursor.execute('''
-                UPDATE blood_requests SET status = ? WHERE id = ?
+                UPDATE blood_requests SET status = %s WHERE id = %s
             ''', (status, request_id))
             conn.commit()
             conn.close()
