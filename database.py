@@ -1,8 +1,7 @@
 import os
 import sqlite3
 from urllib.parse import urlparse
-
-# --- Yahan se 'from models import ...' line hata di gayi hai ---
+# from models import User, Donor, BloodRequest  <--- IS LINE KO HATA DIYA GAYA HAI
 
 class Database:
     def __init__(self):
@@ -16,6 +15,8 @@ class Database:
                 print("Using PostgreSQL database...")
                 try:
                     import psycopg2
+                    from psycopg2.extras import RealDictCursor # ZAROORI: DICTIONARY ACCESS KE LIYE
+                    
                     result = urlparse(self.database_url)
                     conn = psycopg2.connect(
                         database=result.path[1:],
@@ -24,6 +25,9 @@ class Database:
                         host=result.hostname,
                         port=result.port
                     )
+                    # CURSOR FACTORY SET KARNA ZAROORI HAI
+                    conn.cursor_factory = RealDictCursor 
+                    
                     return conn
                 except ImportError:
                     print("psycopg2 not available, falling back to SQLite")
